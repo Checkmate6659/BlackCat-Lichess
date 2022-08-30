@@ -1,11 +1,11 @@
-token: "lip_LxOdszffnb7u1m35raeW"    # Lichess OAuth2 Token.
+token: "lip_D8OGkCYkcx8VeXbJN0Ps"    # Lichess OAuth2 Token.
 url: "https://lichess.org/"  # Lichess base URL.
 
 engine:                      # Engine settings.
   dir: "./"                  # Directory containing engines, relative to this project.
   name: "black_cat"    # Binary name of the engine to use.
-  sfname: "stockfish"
-  antiname: "fsf"
+  sfname: "black_cat"
+  antiname: ""
   protocol: "uci"            # "uci" or "xboard"
   ponder: true               # Think on opponent's time.
   polyglot:
