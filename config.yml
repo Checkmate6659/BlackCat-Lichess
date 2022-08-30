@@ -19,7 +19,7 @@ engine:                      # Engine settings.
         - tcec.bin
         - komodo.bin
         - elo3300.bin
-        - Cerebellum3Merge.bin
+        #- Cerebellum3Merge.bin
       min_weight: 0          # selects move with highest weight but not below this value
       selection: "weighted_random" # move slection is one of "weighted_random", "uniform_random" or "best_move" (but not below the min_weight in 2. and 3. case)
     max_depth: 245             # half move max depth
