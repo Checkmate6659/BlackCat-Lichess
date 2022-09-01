@@ -99,8 +99,9 @@ def game_logging_configurer(queue, level):
 
 def start(li, user_profile, engine_factory, config, logging_level, log_filename):
     challenge_config = config["challenge"]
-    max_games = challenge_config.get("concurrency", 1)
-    logger.info("You're now connected to {} and awaiting challenges.".format(config["url"]))
+    #max_games = challenge_config.get("concurrency", 1)
+    max_games = multiprocessing.cpu_count() #does not work on IronPython
+    logger.info("You're now connected to {} and awaiting challenges. Max games: {}".format(config["url"], max_games))
     manager = multiprocessing.Manager()
     challenge_queue = manager.list()
     control_queue = manager.Queue()
@@ -232,9 +233,11 @@ def play_game(li, game_id, control_queue, engine_factory, user_profile, config, 
     class SendLine:
         def __init__(self, room):
             self.room = room
-    opponent = game.black.name if game.white.name == user_profile["username"] else game.white.name
-    conversation.send_reply(SendLine('player'), f'Good Luck @{opponent}')
-    conversation.send_reply(SendLine('spectator'), f'Welcome to my games spectators!')
+    player_eng = game.white if game.white.name == user_profile["username"] else game.black
+    player_oppt = game.black if game.white.name == user_profile["username"] else game.white
+    opponent = player_oppt.name
+    conversation.send_reply(SendLine('player'), f'Good Luck @{opponent}!' + ' You will surely need it!' if (player_oppt.rating < player_self.rating - 100 or player_oppt.provisional))
+    conversation.send_reply(SendLine('spectator'), f'Welcome to my games spectators! I am currently playing against {str(player_oppt)}. He is {abs(player_oppt.rating - player_self.rating)} Elo points {"lower" if player_oppt.rating < player_self.rating else "higher"} rated than me.')
     
     variant=game.perf_name
       
