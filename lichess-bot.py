@@ -236,7 +236,7 @@ def play_game(li, game_id, control_queue, engine_factory, user_profile, config, 
     player_eng = game.white if game.white.name == user_profile["username"] else game.black
     player_oppt = game.black if game.white.name == user_profile["username"] else game.white
     opponent = player_oppt.name
-    conversation.send_reply(SendLine('player'), f'Good Luck @{opponent}!' + ' You will surely need it!' if (player_oppt.rating < player_self.rating - 100 or player_oppt.provisional))
+    conversation.send_reply(SendLine('player'), f'Good Luck @{opponent}!' + (' You will surely need it!' if (player_oppt.rating < player_self.rating - 100 or player_oppt.provisional)))
     conversation.send_reply(SendLine('spectator'), f'Welcome to my games spectators! I am currently playing against {str(player_oppt)}. He is {abs(player_oppt.rating - player_self.rating)} Elo points {"lower" if player_oppt.rating < player_self.rating else "higher"} rated than me.')
     
     variant=game.perf_name
