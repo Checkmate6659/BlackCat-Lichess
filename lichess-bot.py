@@ -142,6 +142,7 @@ def start(li, user_profile, engine_factory, config, logging_level, log_filename)
                 logger.info("+++ Process Free. Total Queued: {}. Total Used: {}".format(queued_processes, busy_processes))
             elif event["type"] == "challenge":
                 chlng = model.Challenge(event["challenge"])
+                print(event["challenge"]) #DEBUG
                 if chlng.is_supported(challenge_config):
                     challenge_queue.append(chlng)
                     if (challenge_config.get("sort_by", "best") == "best"):
