@@ -142,7 +142,7 @@ def start(li, user_profile, engine_factory, config, logging_level, log_filename)
                 logger.info("+++ Process Free. Total Queued: {}. Total Used: {}".format(queued_processes, busy_processes))
             elif event["type"] == "challenge":
                 chlng = model.Challenge(event["challenge"])
-                print(event["challenge"]) #DEBUG
+                logger.info(event["challenge"]) #DEBUG
                 if chlng.is_supported(challenge_config):
                     challenge_queue.append(chlng)
                     if (challenge_config.get("sort_by", "best") == "best"):
@@ -234,7 +234,7 @@ def play_game(li, game_id, control_queue, engine_factory, user_profile, config, 
     class SendLine:
         def __init__(self, room):
             self.room = room
-    player_eng = game.white if game.white.name == user_profile["username"] else game.black
+    player_self = game.white if game.white.name == user_profile["username"] else game.black
     player_oppt = game.black if game.white.name == user_profile["username"] else game.white
     opponent = player_oppt.name
     conversation.send_reply(SendLine('player'), f'Good Luck @{opponent}!' + (' You will surely need it!' if (player_oppt.rating < player_self.rating - 100 or player_oppt.provisional) else ''))
