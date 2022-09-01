@@ -29,8 +29,8 @@ class Challenge:
     def is_supported_mode(self, supported):
         return "rated" in supported if self.rated else "casual" in supported
 
-    def is_supported(self, config):
-        if not config.get("accept_bot", False) and self.challenger_is_bot:
+    def is_supported(self, config, engine_elo=0):
+        if not config.get("accept_bot", False) and self.challenger_is_bot and self.challenger_rating_int <= engine_elo + 300: #max 300elo higher to filter out stockfishes (TODO: also filter out any engine with provisional rating)
             return False
         if config.get("only_bot", False) and not self.challenger_is_bot:
             return False
